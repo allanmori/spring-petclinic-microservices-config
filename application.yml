@@ -6,10 +6,10 @@ server.port: 0
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
   datasource:
-    #schema: classpath*:db/hsqldb/schema.sql
-    #data: classpath*:db/hsqldb/data.sql
-    schema: classpath*:database/initDB.sql
-    data: classpath*:database/populateDB.sql
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
+    #schema: classpath*:database/initDB.sql
+    #data: classpath*:database/populateDB.sql
   sleuth:
     sampler:
       percentage: 1.0
@@ -50,8 +50,8 @@ management:
 spring:
   profiles: mysql
   datasource:
-    schema: classpath*:database/initDB.sql
-    data: classpath*:database/populateDB.sql
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
     url: jdbc:mysql://localhost:3306/petclinic?useSSL=false
     username: root
     password: petclinic
@@ -62,8 +62,8 @@ spring:
     - mysql
     - docker
   datasource:
-    schema: classpath*:database/initDB.sql
-    data: classpath*:database/populateDB.sql
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
     url: jdbc:mysql://mysql-db:3306/petclinic?useSSL=false
     username: root
     password: petclinic
