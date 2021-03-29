@@ -1,10 +1,7 @@
 # COMMON APPLICATION PROPERTIES
 
-server:
-  # start services on random port by default
-  port: 0
-  # The stop processing uses a timeout which provides a grace period during which existing requests will be allowed to complete but no new requests will be permitted
-  shutdown: graceful
+# start services on random port by default
+server.port: 0
 
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
@@ -13,17 +10,10 @@ spring:
     data: classpath*:db/hsqldb/data.sql
   sleuth:
     sampler:
-      probability: 1.0
-  cloud:
-    config:
-      # Allow the microservices to override the remote properties with their own System properties or config file
-      allow-override: true
-      # Override configuration with any local property source
-      override-none: true
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: none
+      percentage: 1.0
+
+# JPA
+spring.jpa.hibernate.ddl-auto: none
 
 # Spring Boot 1.5 makes actuator secure by default
 management.security.enabled: false
@@ -60,7 +50,19 @@ spring:
   datasource:
     schema: classpath*:db/mysql/schema.sql
     data: classpath*:db/mysql/data.sql
-    url: jdbc:mysql://127.0.0.1:3306/petclinic?useSSL=false
+    url: jdbc:mysql://localhost:3306/petclinic?useSSL=false
     username: root
     password: petclinic
-    initialization-mode: never
+    initialization-mode: ALWAYS
+---
+spring:
+  profiles: 
+    - mysql
+    - docker
+  datasource:
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
+    url: jdbc:mysql://mysql-db:3306/petclinic?useSSL=false
+    username: root
+    password: petclinic
+    initialization-mode: ALWAYS
